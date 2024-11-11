@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-color: rgb(64, 231, 156);
+    }
+
+    .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wrap .container {
+        margin-top: 250px;
+        width: 300px;
+        height: 100px;
+        background-color: rgb(152, 243, 62);
+        box-shadow: 0px 0px 20px rgb(122, 234, 10);
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .con {
+        margin-top: -30px;
+        min-width: 20rem;
+    }
+
+    #showTime {
+        text-align: center;
+        font-size: 48px;
+
+    }
+
+    .con2 {
+        margin-top: 250px;
+        width: 300px;
+        height: 160px;
+        background-color: rgb(152, 243, 62);
+        box-shadow: 0px 0px 20px rgb(122, 234, 10);
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
+        min-width: 20rem;
+
+    }
+</style>
+
+<body>
+
+    <div class="wrap">
+        
+        <div class="container">
+            <div class="con">
+                <p id="showTime"></p>
+            </div>
+        </div>
+        
+        <div class="con2">
+            
+            <p style="text-align: center; font-size: 30px; font-weight: 800;">Set Alarm</p>
+            <input id="clock" style="height: 30px; margin-left: 45px;  outline: none; border: none;" type="time">
+            <button onclick="giveAlarm()"
+                style="margin-left: 20px;height: 40px; background-color: rgb(151, 217, 129); border: none; border-radius: 5px;">Set
+                Alarm</button>
+                
+        </div>
+    </div>
+
+
+</body>
+<script>
+    let clock = document.getElementById("clock")
+    let showTime = document.getElementById('showTime')
+
+    let arr = []
+    let audio = new Audio("../Alarm/alarm3.m4a");
+    let date;
+    let hour
+    let minute
+    let second
+
+    let theTime;
+
+
+    function countTime(a) {
+        showTime = document.getElementById('showTime')
+        date = new Date();
+        hour = date.getHours()
+        minute = date.getMinutes()
+        second = date.getSeconds()
+
+
+        if (minute < 10) {
+            minute = '0' + minute
+        }
+        else {
+            minute = minute
+        }
+
+        if (second < 10) {
+            second = '0' + second
+        }
+        else {
+            second = second
+        }
+        if (hour % 12 != hour) {
+            let newHour = hour % 12
+            hour = ('0' + newHour)
+            let meridian = 'PM'
+        }
+        else {
+            meridian = 'AM'
+            hour = hour
+        }
+        if (hour < 10) {
+            hour = '0' + hour
+
+        }
+        theTime = (`${hour}:${minute}:${second} ${meridian}`)
+        showTime.innerHTML = theTime;
+    }
+    setInterval(countTime, 1000,);
+    countTime();
+    function showAlarm() {
+        if (hour + ':' + minute == clock.value) {
+            audio.play()
+        } else {
+            audio.pause()
+        }
+    }
+    function giveAlarm(){
+        
+         showAlarm()
+    }
+    setInterval(showAlarm, 1000);
+
+
+</script>
+
+</html>
